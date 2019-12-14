@@ -17,24 +17,18 @@ void loop() {
         int number = Serial.parseInt();
         bool *desiredLEDs = get_array_whether_use_LED(number, countLed);
         Serial.println(number);
-        light_off(startPin, endPin);
-        light_on(a, startPin, endPin);
+        updateLEDs(desiredLEDs, startPin, endPin);
     }
 }
 
-void light_on(bool* desiredLEDs, int startPin, int endPin)
+void updateLEDs(bool* desiredLEDs, int startPin, int endPin)
 {
     for (int i = startPin; i < endPin; i++){
         if (desiredLEDs[i - startPin]){
             digitalWrite(i, LOW);
+        } else {
+            digitalWrite(i, HIGH);
         }
-    }
-}
-
-void light_off(int startPin, int endPin)
-{
-    for (int i = startPin; i < endPin; i++){
-        digitalWrite(i, HIGH);
     }
 }
 
